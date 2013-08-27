@@ -31,12 +31,12 @@ class MY_Controller extends CI_Controller {
 		if( strlen($client_codename) > 0 )
 			$client_codename = rtrim($client_codename, '/'). '/';
 
-		$folder_up_now = date('Y-m');
+		$folder_up_now = ''; //date('Y-m');
 
 		$upload_path = dirname(BASEPATH).'/taskino-uploads/'. $client_codename. $folder_up_now. '/';
 
-		if( !file_exists($upload_path) )
-			mkdir( $upload_path, 777, true); // create dir
+		if( !is_dir($upload_path) )
+			mkdir( $upload_path, 0777, true); // create dir
 
 		$config['upload_path'] 		= $upload_path;
 		$config['allowed_types'] 	= $client_files_upload;

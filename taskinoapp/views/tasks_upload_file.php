@@ -23,6 +23,12 @@
 
 	<h3><?php echo _gettxt('task_upload') ?></h3>
 
+	<?php if( isset($msg_error) ): ?>
+  <div class="alert alert-error"><?php echo $msg_error ?><a href="#" class="close" data-dismiss="alert">&times;</a></div>
+  <?php elseif( isset($msg_ok) ): ?>
+  <div class="alert alert-success"><?php echo $msg_ok ?><a href="#" class="close" data-dismiss="alert">&times;</a></div>
+  <?php endif; ?>
+
 	<?php echo form_open_multipart('tasks/upload/'.$task_id); ?>
 
 	<input type="hidden" name="save_upload" value="save" />

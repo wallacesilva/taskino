@@ -432,6 +432,8 @@ class Tasks extends MY_Controller {
 
 		if( isset($_POST['save_upload']) ){
 
+			echo 'inside start';
+
 			$description = '';
 			if( strlen($this->input->post('description')) > 0 )
 				$description = $this->input->post('description');
@@ -454,14 +456,21 @@ class Tasks extends MY_Controller {
 				// register log
 				$msg_task_log = 'Tarefa recebeu novo arquivo. Link: file_id:'. $upload_saved['file_id']. '/ full_url:'. $upload_saved['full_url'];
 				log_task( $task_id, $msg_task_log, 'general');
+
+				//echo 'inside saved';
 				
 			} else {
 
+				$data['msg_error'] = $upload_saved['error'];
+
 				$data['saved'] = false;
+
+				//echo 'inside not saved';
 				
 			}
 
 		}
+
 
 		$this->load->view('tasks_upload_file', $data);
 
