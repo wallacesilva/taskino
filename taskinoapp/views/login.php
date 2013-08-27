@@ -27,6 +27,8 @@ html{
 <div id="taskin-language" class="pull-right">
 	<?php if( isset($company_register) ): ?>
 	<a href="<?php echo base_url('/auth') ?>" class="btn btn-info"><?php echo _gettxt('login') ?></a> &nbsp;
+  <?php else: ?>
+  <a href="<?php echo base_url('/auth/register') ?>" class="btn btn-success"><?php echo _gettxt('reg_register') ?></a> &nbsp;
 	<?php endif; ?>
 
   <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">

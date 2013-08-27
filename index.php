@@ -42,12 +42,12 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-	//define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 // define environment 
-if( $_SERVER['SERVER_ADDR'] === "127.0.0.1" || $_SERVER['SERVER_ADDR'] == '::1' ) 
+define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'production');
+/*if( $_SERVER['SERVER_ADDR'] === "127.0.0.1" || $_SERVER['SERVER_ADDR'] == '::1' ) 
   define('ENVIRONMENT', 'development');
 else
-  define('ENVIRONMENT', 'production');
+  define('ENVIRONMENT', 'production');*/
 
 // maintenance mode
 if( file_exists('maintenance.html') ){
@@ -87,16 +87,18 @@ switch (ENVIRONMENT)
 
 	case 'testing':
 	case 'production':
-		error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_STRICT);
-		ini_set('display_errors', 0);
+		/*error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_STRICT);
+		ini_set('display_errors', 0);*/
+		error_reporting(-1);
+		ini_set('display_errors', 1);
 
 		// database connection
 		define('DB_HOST', 'localhost');
-		define('DB_USER', 'walla537_taskino');
-		define('DB_PASS', '@D[p=n]Pk1LQ');
-		define('DB_NAME', 'walla537_taskino');
+		define('DB_USER', 'in9web_taskino');
+		define('DB_PASS', '8zThQWmmDE6E');
+		define('DB_NAME', 'in9web_taskino');
 		define('DB_PREFIX', 'go_');
-		define('MAIL_NO_REPLY', 'no-reply@taskino.co');
+		define('MAIL_NO_REPLY', 'no-reply@in9web.com');
 
 		define('DB_TASKINO_HOST', 'localhost');
 		define('DB_TASKINO_USER', 'root');

@@ -7,7 +7,7 @@ class MY_Controller extends CI_Controller {
 		parent::__construct();
 
 		// connect to taskino database
-		$this->taskinodb = $this->load->database('taskinodb', true);
+		//$this->taskinodb = $this->load->database('taskinodb', true);
 
 		if( member_check_login() == FALSE )
 			redirect('/auth');
