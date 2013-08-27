@@ -23,6 +23,15 @@ class Auth extends CI_Controller {
 		$data['my_tasks'] = '('.'usuario'.')';*/
 		$data = null;
 
+		// get messages
+    $msg_error = $this->session->flashdata('msg_error');
+    if( $msg_error !== false )
+      $data['msg_error'] = $msg_error;
+
+    $msg_ok = $this->session->flashdata('msg_ok');
+    if( $msg_ok !== false )
+      $data['msg_ok'] = $msg_ok;
+
 		$this->load->view('login', $data);
 	}
 
@@ -307,7 +316,7 @@ class Auth extends CI_Controller {
       											 'login'						=> $login, 
       											 'email'  					=> $email,
       											 'password' 				=> sha1($password),
-      											 'status'						=> 'active',
+      											 'status'						=> 'inactive',//'active',
       											 'language_default'	=> 'portuguese',
       											 'is_admin' 				=> 'yes',
       											 'is_admin_master' 	=> 'yes',
@@ -332,7 +341,9 @@ class Auth extends CI_Controller {
       	$headers .= 'Reply-to: no-reply@in9web.com'. PHP_EOL;
 
       	mail($to, $subject, $message, $headers);
-
+				
+				$data['msg_ok'] = _gettxt('msg_info_sent_email_new_account'); //'Ueba! Enviamos o email para você!';
+				$this->session->set_flashdata('msg_ok', $data['msg_ok']);
       	redirect('/auth');
 
       } else {
@@ -343,6 +354,33 @@ class Auth extends CI_Controller {
 
 		}
 
+	}
+
+	public function company_activate($company_activate){
+
+		$this->db->where('company_activate', $company_activate);
+		$query = $this->db->get('taskino_company');
+
+		if ($query->num_rows() > 0) {
+
+			$result = $query->result();
+
+			// update members
+			$this->db->where('company_id', $result[0]->id);
+			$this->db->update('members', array('status'=>'active'));
+
+			// remove code from company
+			$this->db->where('id', $result[0]->id);
+			$this->db->update('taskino_company', array('company_activate'=>null));
+
+			$data['msg_ok'] = _gettxt('msg_ok_company_activated'); //'Ueba! Enviamos o email para você!';
+			$this->session->set_flashdata('msg_ok', $data['msg_ok']);
+    	redirect('/auth');
+
+		}
+
+    redirect('/auth');
+    
 	}
 
 }

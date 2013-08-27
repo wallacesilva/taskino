@@ -31,13 +31,17 @@ $lang['msg_error_email_exists'] = "Oops! E-mail já cadastrado. Tente novamente!
 $lang['msg_error_login_exists'] = "Oops! Login já cadastrado. Tente novamente!";
 $lang['msg_error_choose_a_project_please'] = "Oops! Você precisa escolher um projeto!";
 $lang['msg_error_plan_project_no_more'] = "Oops! Máximo de projetos permitidos para esse plano!";
+$lang['msg_error_company_not_active'] = "Por favor, ative sua conta!";
 
 // success messages
 $lang['msg_ok_email_missing'] = "You must submit an email address";
 $lang['msg_ok_pass_changed'] = "Senha alterada com sucesso!";
+$lang['msg_ok_company_activated'] = "Sua conta foi ativada!";
+$lang['msg_ok_report_sent'] = "Obrigado por sua ajuda!";
 
 // info messages
 $lang['msg_info_email_recover_pass'] = "Ueba! Verifique seu email!";
+$lang['msg_info_sent_email_new_account'] = "Ueba! Verifique seu email!";
 
 // others messages
 $lang['msg_confirm_task_remove'] = 'Tem certeza que deseja remover a tarefa e itens associados a ela?';
@@ -55,6 +59,16 @@ Você tem nova tarefa.
 Nome da tarefa: {task_name} 
 Prioridade: {task_priority}
 Prazo: {task_due_date}
+
+Bom trabalho. :)';
+
+$lang['msg_new_company_registered_subject'] = '%s Seja bem vindo';
+$lang['msg_new_company_registered_message'] = '
+Olá, {member_name}!
+
+Nome da empresa: {company_name}
+Por favor, ative sua nova conta.
+{url_account_activate}
 
 Bom trabalho. :)';
 
@@ -81,6 +95,13 @@ $lang['plan_select_option'] = 'Selecione um plano';
 $lang['free'] = 'Grátis';
 $lang['basic'] = 'Básico';
 
+$lang['report_error'] = 'Informar um erro';
+$lang['report_title'] = 'Titulo';
+$lang['report_where'] = 'Onde?';
+$lang['report_where_placeholder'] = 'Onde achou o erro?';
+$lang['report_description'] = 'Descrição';
+$lang['report_description_placeholder'] = 'Por favor, descreva o error detalhadamente.';
+
 //
 $lang['tasks'] = 'Tarefas';
 $lang['task'] = 'Tarefa';
@@ -101,7 +122,6 @@ $lang['member_add_txt'] = 'Adicionar usuário';
 $lang['no_members'] = 'Nenhum usuário :(';
 $lang['member_select_option'] = 'Selecione usuário';
 $lang['language_default'] = 'Linguagem padrão';
-
 
 $lang['files'] = 'Arquivos';
 $lang['file'] = 'Arquivo';

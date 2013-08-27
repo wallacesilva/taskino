@@ -38,6 +38,8 @@
 					    <li><a href="<?php echo base_url('/auth/logout') ?>"><span class="icon-off"></span> <?php echo _gettxt('menu_logout') ?></a></li>
 					  </ul>
 					</div>
+					<!-- REPORT A BUG -->
+					<a href="<?php echo base_url('/settings/report_error'); ?>" class="btn btn-danger pull-right" title="<?php echo _gettxt('report_error') ?>"><i class="icon-bug"></i></a> 
 					<?php // translation ?>
 					<div class="btn-group pull-right" style="display:none;">
 					  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">

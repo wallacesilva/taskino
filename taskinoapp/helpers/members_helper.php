@@ -253,13 +253,23 @@ function member_do_login($login, $password){
 
   $CI =& get_instance();
 
-  $member_where = array('login' => $login, 'password' => sha1($password), 'status'=>'active');
+  $member_where = array('login' => $login, 'password' => sha1($password)); //, 'status'=>'active'
   $login_member = $CI->db->get_where('members', $member_where);
   //$login_member = $login_member->result();
 
   if( $login_member->num_rows() == 1 ){
     
     $member = $login_member->row_array();
+
+    if ($member['status'] == 'inactive') {
+
+      $data2['msg_error'] = _gettxt('msg_error_company_not_active'); 
+      $this->session->set_flashdata('msg_error', $data2['msg_error']);
+      redirect('/auth');
+
+    }
+
+    // remove password from session
     unset($member['password']);
 
     // fix multiple company

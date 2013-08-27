@@ -5,7 +5,7 @@ include('header.php');
 ?>
 <div class="wrap">
 
-  <!-- <a href="<?php echo base_url('/settings/add'); ?>" class="btn pull-right"><?php echo _gettxt('settings_add_txt') ?></a>   -->
+  <a href="<?php echo base_url('/settings/report_error'); ?>" class="btn btn-danger pull-right"><?php echo _gettxt('report_error') ?></a> 
   <h3><?php echo _gettxt('settings') ?></h3>
 
   <?php if( isset($msg_error) ): ?>

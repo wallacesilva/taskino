@@ -67,6 +67,55 @@ class Settings extends MY_Controller {
     
   }
 
+  public function report_error(){
+
+    $data = array();
+
+    $data_save = $this->report_error_save();
+
+    $data = array_merge($data, $data_save);
+
+    // get messages
+    $msg_error = $this->session->flashdata('msg_error');
+    if( strlen($msg_error) > 0 )
+      $data['msg_error'] = $msg_error;
+
+    $msg_ok = $this->session->flashdata('msg_ok');
+    if( strlen($msg_ok) > 0 )
+      $data['msg_ok'] = $msg_ok;
+
+    $this->load->view('report_error', $data);
+
+  }
+
+  public function report_error_save(){
+
+    if (isset($_POST['do_report']) && $_POST['do_report'] == 'bug') {
+
+      $title       = $this->input->post('report_title');
+      $where       = $this->input->post('report_where');
+      $description = $this->input->post('report_description');
+
+      $bug_data = array('member_id'   => get_member_session('id'),
+                        'company_id'  => get_member_session('company_id'),
+                        'title'       => $title,
+                        'where_find'  => $where,
+                        'description' => $description,
+                        'date_added'  => date('Y-m-d H:i:s'),
+                       );
+
+      $this->db->insert('report_bug', $bug_data);
+
+      $data['msg_ok'] = _gettxt('msg_ok_report_sent'); // obrigado pela ajuda
+
+      return $data;
+
+    }
+
+    return array();
+
+  }
+
 }
 
 /* End of file settings.php */

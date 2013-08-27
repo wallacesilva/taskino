@@ -31,13 +31,17 @@ $lang['msg_error_email_exists'] = "Oops! Sorry, e-mail exists. Try again!";
 $lang['msg_error_login_exists'] = "Oops! Sorry, login exists. Try again!";
 $lang['msg_error_choose_a_project_please'] = "Oops! You need choose a project!";
 $lang['msg_error_plan_project_no_more'] = "Oops! Exceed limit of project to your plan!";
+$lang['msg_error_company_not_active'] = "Please, active your account!";
 
 // success messages
 $lang['msg_ok_email_missing'] = "You must submit an email address";
 $lang['msg_ok_pass_changed'] = "Password changed with success!";
+$lang['msg_ok_company_activated'] = "Your account was activated!";
+$lang['msg_ok_report_sent'] = "Thank you for your help!";
 
 // info messages
 $lang['msg_info_email_recover_pass'] = "Yep! See your email!";
+$lang['msg_info_sent_email_new_account'] = "Yep! See your email!";
 
 // others messages
 $lang['msg_confirm_task_remove'] = 'You wish remove this task?';
@@ -91,6 +95,13 @@ $lang['plan_select_option'] = 'Select a plan';
 $lang['free'] = 'Free';
 $lang['basic'] = 'Basic';
 
+$lang['report_error'] = 'Report a Bug';
+$lang['report_title'] = 'Title';
+$lang['report_where'] = 'Where?';
+$lang['report_where_placeholder'] = 'Where you found it?';
+$lang['report_description'] = 'Description';
+$lang['report_description_placeholder'] = 'Describe the error, please.';
+
 //
 $lang['tasks'] = 'Tasks';
 $lang['task'] = 'Task';
@@ -110,6 +121,7 @@ $lang['member'] = 'Member';
 $lang['member_add_txt'] = 'Add member';
 $lang['no_members'] = 'No members :(';
 $lang['member_select_option'] = 'Select a member';
+$lang['language_default'] = 'Linguagem padrão';
 
 $lang['files'] = 'Files';
 $lang['file'] = 'File';
@@ -122,12 +134,10 @@ $lang['file_no_file_selected'] = 'No file selected';
 $lang['file_description'] = 'Description to file';
 $lang['task_upload'] = 'File Upload';
 
-
 $lang['comments'] = 'Comments';
 $lang['comment'] = 'Comment';
 $lang['comment_add'] = 'Add Comment';
 $lang['no_comments'] = 'Ops! No Comments. :)';
-$lang['language_default'] = 'Default language';
 
 $lang['priority_very_low'] = 'Very Low';
 $lang['priority_low'] = 'Low';
@@ -171,4 +181,3 @@ $lang['recover'] = 'Recover';
 $lang['is_admin'] = 'Is Admin';
 $lang['yes'] = 'Yes';
 $lang['no'] = 'No';
-
