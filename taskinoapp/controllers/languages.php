@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Languages extends MY_Controller {
+class Languages extends CI_Controller {
 
   public function index(){
 
@@ -11,11 +11,18 @@ class Languages extends MY_Controller {
   public function change_to( $lang = 'english' ){
 
     if( !in_array($lang, array('english', 'portuguese') ) )
-      $lang = 'english';
+      $lang = 'portuguese';
 
     $this->session->set_userdata('taskino_lang', $lang);
+    
+    if( strpos($_SERVER['HTTP_REFERER'] , base_url()) !== FALSE ){
+      
+      redirect($_SERVER['HTTP_REFERER']);
 
-    redirect('/dashboard');
+    } else {
+
+      redirect('/dashboard');
+    }
 
   }
 

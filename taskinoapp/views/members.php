@@ -8,6 +8,12 @@ include('header.php');
 	<a href="<?php echo base_url('/members/add'); ?>" class="btn pull-right"><?php echo _gettxt('member_add_txt') ?></a>	
 	<h3><?php echo _gettxt('members') ?></h3>
 
+	<?php if( isset($msg_error) ): ?>
+  <div class="alert alert-error"><?php echo $msg_error ?><a href="#" class="close" data-dismiss="alert">&times;</a></div>
+  <?php elseif( isset($msg_ok) ): ?>
+  <div class="alert alert-success"><?php echo $msg_ok ?><a href="#" class="close" data-dismiss="alert">&times;</a></div>
+  <?php endif; ?>
+
 	<?php if( !empty($members) ): ?>
 		<table class="tbl_list table table-bordered table-hover table-condensed">
 			<thead>

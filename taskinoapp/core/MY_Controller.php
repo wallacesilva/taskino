@@ -14,22 +14,32 @@ class MY_Controller extends CI_Controller {
 
 		// get default language
 		set_taskino_language();
-
+		
 	}
 
 	public function do_upload( $description = '', $task_id = null ){
 		// 'upload_max_filesize', 'post_max_size'
 		// table task_files: id, description, filename, file_type, full_path, full_url, is_image, file_size, created_by, date_added
+		$client_codename 			= get_company_code();
+
+		if( strlen($client_codename) < 1 )
+			$client_codename 			= 'taskino/'; // get codename to this client
+		
+		$client_files_upload 	= 'gif|jpg|jpeg|png|pdf|xls|xlsx|doc|docx|txt|svg|zip|rar'; 
+
+
+		if( strlen($client_codename) > 0 )
+			$client_codename = rtrim($client_codename, '/'). '/';
 
 		$folder_up_now = date('Y-m');
 
-		$upload_path = dirname(BASEPATH).'/taskino-uploads/'.$folder_up_now.'/';
+		$upload_path = dirname(BASEPATH).'/taskino-uploads/'. $client_codename. $folder_up_now. '/';
 
 		if( !file_exists($upload_path) )
 			mkdir( $upload_path, 777, true); // create dir
 
 		$config['upload_path'] 		= $upload_path;
-		$config['allowed_types'] 	= 'gif|jpg|jpeg|png|pdf|xls|xlsx|doc|docx|txt|svg';
+		$config['allowed_types'] 	= $client_files_upload;
 		$config['max_size']				= '2048'; 
 		$config['encrypt_name']		= true; 
 		//$config['max_width']  		= '1024';
@@ -51,10 +61,11 @@ class MY_Controller extends CI_Controller {
 
 			$file_data = array('description' 	=> $description,
 												'task_id' 			=> $task_id, // id da tarefa para salvar arquivo
+												'company_id'		=> get_member_session('company_id'), // id da empresa do usuario
 												'filename' 			=> $updata['file_name'], // nome do arquivo
 												'file_type' 		=> $updata['file_type'], // tipo do arquivo
 												'full_path' 		=> str_replace(dirname(BASEPATH), '', $updata['full_path']), // caminho do dir principal: pasta + arquivo
-												'full_url' 		 	=> base_url('/taskino-uploads/'.$folder_up_now.'/'.$updata['file_name']), // url direta para o arquivo
+												'full_url' 		 	=> base_url('/taskino-uploads/'. $client_codename. $folder_up_now.'/'.$updata['file_name']), // url direta para o arquivo
 												'is_image' 			=> $updata['is_image'], // define se eh imagem ou nao
 												'file_size' 		=> $updata['file_size'], // tamanho do arquivo em KB
 												'created_by'		=> get_member_session('id'), // quem esta adicionando
@@ -105,6 +116,17 @@ class MY_Controller extends CI_Controller {
 			//$this->load->view('upload_success', $data);
 
 		}
+
+	}
+
+}
+
+class Admin_Controller extends CI_Controller{
+
+	public function __construct(){
+		parent::__construct();
+
+		echo 'loaded from Admin_Controller';
 
 	}
 

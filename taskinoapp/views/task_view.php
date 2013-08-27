@@ -15,7 +15,6 @@ include('header.php');
 
 					<strong><?php echo $task->name; ?></strong> <small>(<?php echo date('d/m/Y', strtotime($task->date_added)); ?>)</small>
 					<br>
-					<a href="javascript:jQuery('#task-more-info').toggle();" class="btn btn-mini pull-right"><?php echo _gettxt('see_more') ?></a> 
 					<small>
 						<strong><?php echo _gettxt('assigned_to') ?></strong> <?php echo get_member( $task->assigned_to, 'name'); ?> <br>
 						<strong><?php echo _gettxt('due_date') ?></strong> <?php echo date('d/m/Y', strtotime($task->task_due_date)); ?> <br>
@@ -27,14 +26,19 @@ include('header.php');
 							<strong><?php echo _gettxt('description') ?> </strong>
 							<?php echo nl2br($task->description); ?>
 						</p>
-						<strong><?php echo _gettxt('progress') ?></strong>
+						<strong><?php echo _gettxt('progress') ?> (<span><?php echo $task->total_percent; ?>%</span>)</strong>
 						<div class="progress progress-striped" id="total_percent_bar" style="width:100%;">
-						  <div class="bar" style="width: <?php echo $task->total_percent; ?>%;"> <span><?php echo $task->total_percent; ?>%</span> </div> 
+						  <div class="bar" style="width: <?php echo $task->total_percent; ?>%;"> </div> 
 						</div>
 					</small>
 
-					<br>
-					<strong><?php _gettxt('task_files') ?></strong> 
+					<a href="javascript:jQuery('#task-more-info').slideToggle();" class="btn btn-mini" style="width:95%; margin:0 auto;">
+						<i class="icon-long-arrow-down"></i>
+						<i class="icon-long-arrow-up"></i>
+						<?php echo _gettxt('see_more') ?></a> 
+					<hr>
+
+					<strong><?php echo _gettxt('task_files') ?></strong> 
 					
 					<!-- <a href="<?php echo base_url('/tasks/upload/'.$task->id); ?>" class="gomodal pull-right btn btn-mini" data-close-reload="true"> -->
 					<a href="<?php echo base_url('/tasks/upload/'.$task->id); ?>?iframe=true" class="pull-right btn btn-mini" rel="prettyPhoto[iframe]">
@@ -56,7 +60,8 @@ include('header.php');
 
 						<?php if( $tfile->is_image ): ?>
 							<i class="icon-eye-open"></i> 
-							<a href="<?php echo $tfile->full_url; ?>" title="<?php echo $file_description; ?>" rel="prettyPhoto[gallery_down]">
+							<a href="<?php echo base_url('tasks/file/download/'.$tfile->id); ?>" title="<?php echo $file_description; ?>" rel="prettyPhoto[gallery_down]">
+							<?php /* <a href="<?php echo $tfile->full_url; ?>" title="<?php echo $file_description; ?>" rel="prettyPhoto[gallery_down]"> */ ?>
 								<?php echo $file_description; ?>
 							</a>
 							<br>
@@ -92,8 +97,9 @@ include('header.php');
 						<textarea name="comment" id="task_comment" class="form_textarea" placeholder="<?php echo _gettxt('comment') ?>"></textarea>
 
 						<label></label>
-						<input type="submit" class="btn" value="<?php echo _gettxt('save') ?>" />
-						<input type="reset" class="btn" value="<?php echo _gettxt('reset') ?>" />
+						<!-- <input type="submit" class="btn" value="<?php echo _gettxt('save') ?>" />
+						<input type="reset" class="btn" value="<?php echo _gettxt('reset') ?>" /> -->
+						<button type="submit" class="btn btn-primary"><?php echo _gettxt('save') ?></button>
 
 					</form>
 				</div><!-- end .form_add_comment -->

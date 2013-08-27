@@ -3,7 +3,7 @@ SetEnv CI_ENV development
 <IfModule mod_rewrite.c>
  
     RewriteEngine On
-    #RewriteBase /teste/gotask/
+    #RewriteBase /
  
     ### Canonicalize codeigniter URLs 
     # If your default controller is something other than
@@ -28,6 +28,7 @@ SetEnv CI_ENV development
     # request to index.php
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
+    #RewriteRule ^app/([0-9]+)/(.*)$ index.php/$2 [L]
     RewriteRule ^(.*)$ index.php/$1 [L]
  
 </IfModule>

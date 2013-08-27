@@ -22,7 +22,8 @@ include('header.php');
 		<p></p>
 		<br>
 
-		<button type="submit" class="btn"><?php echo _gettxt('save') ?></button>
+		<a href="javascript:;" onclick="history.back(-1);" class="btn"><i class="icon-chevron-left"></i> <?php echo _gettxt('back') ?></a>
+		<button type="submit" class="btn btn-primary"><?php echo _gettxt('save') ?></button>
 
 	</form>
 

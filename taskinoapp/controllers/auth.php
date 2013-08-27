@@ -7,7 +7,7 @@ class Auth extends CI_Controller {
 		parent::__construct();
 
 		// connect to taskino database
-		$this->taskinodb = $this->load->database('taskinodb', true);
+		//$this->taskinodb = $this->load->database('taskinodb', true);
 
 		// get default language
 		set_taskino_language();
@@ -26,26 +26,83 @@ class Auth extends CI_Controller {
 		$this->load->view('login', $data);
 	}
 
+	public function check_login( $login ){
+
+		if (strlen($login) < 3) {
+			echo 'no';
+		} else {
+
+			if (check_member_login_exists($login)) {
+				echo 'yes';
+			} else {
+				echo 'no';
+			}
+
+		}
+
+	}
+
+	public function choose_company(){
+
+		// prevent access direct, required logged
+		if( get_member_session('id') < 1 )
+			redirect('auth');
+
+		$data = null;
+
+		if( isset($_POST['company_id']) ){
+
+			if( $_POST['company_id'] > 0 ){
+				
+				$company_id = $_POST['company_id'];
+
+				member_set_company_session($company_id);
+
+				// check is ok 
+				if( get_member_session('company_id') > 0 )
+					redirect('dashboard');
+
+			} 
+
+			$data['msg_error'] = _gettxt('msg_error_incorrect_company'); //'empresa incorreta';
+
+		}
+
+		$data['member_companies'] = member_get_company(get_member_session('id')); //get_member_session('companies'); //member_get_company();
+
+		$this->load->view('login', $data);
+
+	}
+
 	// try login
 	public function login(){
 
 		$data['msg_error'] = '';
 
-		$email 		= $this->input->post('email');
+		//$email 		= $this->input->post('email');
+		$login 		= $this->input->post('login');
 		$password = $this->input->post('password');
 		
-		if( isset($_POST['email']) && isset($_POST['password']) ){
+		if( isset($_POST['login']) && isset($_POST['password']) ){
 
-			$logged = member_do_login($email, $password);
+			$logged = member_do_login($login, $password);
 		
 			// verifica se realizou o login			
 			if( $logged == true ){
-			
+				
 				redirect('dashboard');
+				
+				/*
+				// fix multiple company
+				$member_company_id = get_member_session('company_id');
+				if( $member_company_id > 0 )
+					redirect('dashboard');
+				else 
+					redirect('auth/choose_company');*/
 
 			} else {
 
-				$data['msg_error'] = 'E-mail ou senha incorretos';
+				$data['msg_error'] = _gettxt('msg_error_incorrect_login_pass'); //'login ou senha incorretos';
 
 			}
 
@@ -76,6 +133,7 @@ class Auth extends CI_Controller {
 			
 			$data['member']['id'] 		= $member_with_key[0]->id;
 			$data['member']['email'] 	= $member_with_key[0]->email;
+			$data['member']['login'] 	= $member_with_key[0]->login;
 
 		}
 
@@ -103,11 +161,11 @@ class Auth extends CI_Controller {
 
 		if( $pass_changed ){
 			
-			$data['msg_ok'] = 'Password changed with success!';
+			$data['msg_ok'] = _gettxt('msg_ok_pass_changed'); //'Password changed with success!';
 			
 		}	else {
 
-			$data['msg_error'] = 'Error on change your password.';
+			$data['msg_error'] = _gettxt('msg_error_pass_not_changed'); //'Error on change your password.';
 			$data['activation_key'] = $this->input->post('activation_key');
 			$data['recovered_pass'] = true;
 
@@ -122,15 +180,17 @@ class Auth extends CI_Controller {
 
 		if( $this->input->post('recover_password') == 'do_please' ){
  
-			$data['msg_ok'] = 'Wow! Enviado por email';
+			$data['msg_ok'] = ''; // 'Wow! Enviado por email';
 
-			$email = $this->input->post('email_recover');
+			//$email = $this->input->post('email_recover');
+			$login = $this->input->post('login');
 
-			$this->db->where('email', $email);
+			$this->db->where('login', $login);
 			$members 	= $this->db->get('members')->result();
-			$member 	= $members[0];
 
-			if( count($members) == 1 && $member->email == $email ){	
+			if( count($members) == 1 && isset($members[0]) && $members[0]->login == $login ){	
+				
+				$member 	= $members[0];
 
 				$nl = PHP_EOL;
 
@@ -140,7 +200,7 @@ class Auth extends CI_Controller {
 				//$data_update = array('password' => sha1($new_password));
 				$data_update = array('activation_key' => $random_string);
 				
-				$this->db->where('email', $member->email);
+				$this->db->where('login', $member->login);
 				$pass_changed = $this->db->update('members', $data_update);
 
 				if( $pass_changed ){
@@ -149,7 +209,7 @@ class Auth extends CI_Controller {
 					//echo $url_recover_pass;
 
 					$to 		 = $member->email;
-					$subject = '[Taskino] Requested a new passoword';
+					$subject = '[Taskino] Requested a new password';
 					$message  = 'Hi, '. $member->name. $nl. $nl;
 					$message .= 'You requested a new password.'. $nl;
 					$message .= $url_recover_pass. $nl. $nl;
@@ -157,17 +217,17 @@ class Auth extends CI_Controller {
 
 					mail($to, $subject, $message);
 
-					$data['msg_ok'] = 'Ueba! Enviamos o email para você!';
+					$data['msg_ok'] = _gettxt('msg_info_email_recover_pass'); //'Ueba! Enviamos o email para você!';
 
 				} else {
 
-					$data['msg_error'] = 'Ops! Tente novamente, dentro de instantes.';	
+					$data['msg_error'] = _gettxt('msg_error_try_again'); //'Ops! Tente novamente, dentro de instantes.';	
 
 				}
 
 			} else {
 
-				$data['msg_error'] = 'Ops! E-Mail não encontrado';	
+				$data['msg_error'] = _gettxt('msg_error_email_not_found'); //'Ops! E-Mail não encontrado';	
 
 			}
 
@@ -183,8 +243,106 @@ class Auth extends CI_Controller {
 		// helper para limpar sessao do usuario
 		clear_member_session();
 
-		redirect('auth');
+		redirect('/auth');
 		
+	}
+
+	public function register(){
+
+		$this->register_save();
+
+		$data['company_register'] = true;
+
+		$this->load->view('login', $data);
+
+	}
+
+	public function register_save(){
+
+		if( isset($_POST['do_register']) && $_POST['do_register'] == 'save' ){
+
+			$this->load->library('form_validation');
+
+      $this->form_validation->set_rules('company_name', _gettxt('reg_company_name'), 'required');
+      $this->form_validation->set_rules('member_admin_login', _gettxt('login'), 'required|is_unique[members.login]');
+      $this->form_validation->set_rules('member_admin_email', _gettxt('email'), 'required|valid_email');
+      $this->form_validation->set_rules('member_admin_name', _gettxt('reg_member_name'), 'required');
+      $this->form_validation->set_rules('member_admin_pass', _gettxt('password'), 'required');
+      $this->form_validation->set_rules('plan', _gettxt('plan'), 'required|is_natural_no_zero');
+
+      // validate form
+      if( $this->form_validation->run() !== FALSE ){
+
+
+      	$company_name = $this->input->post('company_name');
+      	$login 				= $this->input->post('member_admin_login');
+      	$email 				= $this->input->post('member_admin_email');
+      	$name 				= $this->input->post('member_admin_name');
+      	$password 		= $this->input->post('member_admin_pass');
+      	$plan 				= $this->input->post('plan');
+
+      	$company_codename = url_title($company_name);
+      	$this->load->helper('string');
+      	$company_activate = random_string('alnum', 16);
+
+      	// inserting new company
+      	$company_data = array('name'						=> $company_name,
+      												'email'						=> $email,
+      												'codename'				=> $company_codename,
+      												'folder_name' 		=> $company_codename, 
+      												'plan_id_active' 	=> $plan,
+      												'payment_status'	=> ($plan == 1) ? 'confirmed': 'pending',
+      												'company_activate'=> $company_activate,
+      												'date_added'			=> date('Y-m-d H:i:s')
+      												);
+
+      	$this->load->model('settings_model');
+      	$this->settings_model->save( $company_data );
+
+      	$new_company_id = $this->db->insert_id();
+
+      	// inserting new member 
+      	$member_data = array('name' 						=> $name,
+      											 'company_id' 			=> $new_company_id,
+      											 'login'						=> $login, 
+      											 'email'  					=> $email,
+      											 'password' 				=> sha1($password),
+      											 'status'						=> 'active',
+      											 'language_default'	=> 'portuguese',
+      											 'is_admin' 				=> 'yes',
+      											 'is_admin_master' 	=> 'yes',
+      											 'date_added'				=> date('Y-m-d H:i:s')
+      											);
+
+      	$this->load->model('members_model');
+      	$this->members_model->save( $member_data );
+
+      	$to = $email;
+      	$subject = sprintf(_gettxt('msg_new_company_registered_subject'), '[Taskino]');
+      	$__message = _gettxt('msg_new_company_registered_message');
+
+      	$__message = str_replace('{member_name}', $name, $__message);
+      	$__message = str_replace('{company_name}', $company_name, $__message);
+      	$__message = str_replace('{url_account_activate}', base_url('/auth/company_activate/'. $company_activate), $__message);
+
+      	$message = $__message;
+
+      	$headers = '';
+      	$headers .= 'From: no-reply@in9web.com'. PHP_EOL;
+      	$headers .= 'Reply-to: no-reply@in9web.com'. PHP_EOL;
+
+      	mail($to, $subject, $message, $headers);
+
+      	redirect('/auth');
+
+      } else {
+
+      	// validation error
+
+      }
+
+		}
+
 	}
 
 }

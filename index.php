@@ -54,7 +54,6 @@ if( file_exists('maintenance.html') ){
 	include('maintenance.html');
 	exit();
 }
-
 	
 /*
  *---------------------------------------------------------------
@@ -112,7 +111,11 @@ switch (ENVIRONMENT)
 		exit(1); // EXIT_* constants not yet defined; 1 is EXIT_ERROR, a generic error.
 }
 
+define('TASKINO_BASE_URL', '');
 
+/*if( !defined('TASKINO_BASE_URL') )
+	define('TASKINO_BASE_URL' , '');
+*/
 
 /*
  *---------------------------------------------------------------
@@ -123,6 +126,7 @@ switch (ENVIRONMENT)
  * Include the path if the folder is not in the same  directory
  * as this file.
  */
+if( !isset($system_path) )
 	$system_path = 'system';
 
 /*
@@ -138,6 +142,7 @@ switch (ENVIRONMENT)
  *
  * NO TRAILING SLASH!
  */
+if( !isset($application_folder) )
 	$application_folder = 'taskinoapp';
 
 /*
@@ -153,6 +158,7 @@ switch (ENVIRONMENT)
  *
  * NO TRAILING SLASH!
  */
+if( !isset($view_folder) )
 	$view_folder = '';
 
 

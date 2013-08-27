@@ -34,6 +34,15 @@ class Dashboard extends MY_Controller {
 		$this->pagination->initialize($pagination_config); 
 
 		$data['pagination'] = $this->pagination->create_links();
+
+		// get messages
+    $msg_error = $this->session->flashdata('msg_error');
+    if( $msg_error !== false )
+      $data['msg_error'] = $msg_error;
+
+    $msg_ok = $this->session->flashdata('msg_ok');
+    if( $msg_ok !== false )
+      $data['msg_ok'] = $msg_ok;
 		
 		$this->load->view('dashboard', $data);
 

@@ -5,8 +5,14 @@ include('header.php');
 ?>
 <div class="wrap">
 
-	<a href="<?php echo base_url('/tasks/add'); ?>" class="btn pull-right"><?php echo _gettxt('task_add_txt'); ?></a>	
+	<!-- <a href="<?php echo base_url('/tasks/add'); ?>" class="btn pull-right"><?php echo _gettxt('task_add_txt'); ?></a>	 -->
 	<h3><?php echo _gettxt('tasks'). ' '. @$my_tasks; ?></h3>
+
+	<?php if( isset($msg_error) ): ?>
+  <div class="alert alert-error"><?php echo $msg_error ?><a href="#" class="close" data-dismiss="alert">&times;</a></div>
+  <?php elseif( isset($msg_ok) ): ?>
+  <div class="alert alert-success"><?php echo $msg_ok ?><a href="#" class="close" data-dismiss="alert">&times;</a></div>
+  <?php endif; ?>
 
 	<?php if( !empty($tasks) ): ?>
 		<table class="tbl_list table table-bordered table-hover table-condensed">
@@ -39,6 +45,7 @@ include('header.php');
 					$task_url_3 		= base_url('/tasks/edit/'.$task->id); // edit task
 					$task_url_4 		= base_url('/tasks/remove/'.$task->id); // remove task
 					$task_url_5 		= base_url('/tasks/finalize/'.$task->id); // finalize task
+					$task_url_6 		= base_url('/tasks/task_assigned_to/'.$task->id); // view task
 					//$task_url_3 		= base_url('/tasks/show/'.$task->id); // view task
 				?>
 				<tr class="<?php echo $task_solved . $task_to_today; ?>">
@@ -52,6 +59,21 @@ include('header.php');
 					<td><?php echo get_member( $task->created_by, 'name'); ?></td>
 					<td><?php echo date('d/m/Y', strtotime($task->task_due_date)); ?></td>
 					<td>
+						<a href="#form-assigned-to-<?php echo $task->id; ?>" class="btn btn-mini" title="<?php echo _gettxt('assigned_to') ?>" rel="prettyPhoto">
+							<i class="icon-arrow-right"></i><i class="icon-user"></i>
+						</a>
+						<div id="form-assigned-to-<?php echo $task->id; ?>" style="display:none;">
+							<form method="post" action="<?php echo $task_url_6; ?>">
+								<label><?php echo _gettxt('assigned_to') ?></label>
+								<select name="assigned_to">
+									<?php echo get_members_options(); ?>
+								</select>
+
+								<label></label>
+								<a href="javascript:;" onclick="$.prettyPhoto.close();" class="btn"><?php echo _gettxt('cancel') ?></a>
+								<button type="submit" class="btn btn-primary"><?php echo _gettxt('save') ?></button>
+							</form>
+						</div>
 						<a href="<?php echo $task_url_0; ?>" class="btn btn-mini" title="<?php echo _gettxt('task_view') ?>"><span class="icon-eye-open"></span></a>
 						<!-- <a href="<?php echo $task_url_1; ?>" class="btn btn-mini" rel="prettyPhoto" title="Change progress"><span class="icon-signal"></span></a>
 						<a href="<?php echo $task_url_2; ?>" class="btn btn-mini" rel="prettyPhoto" title="Change Assigned to"><span class="icon-chevron-right"></span> <i class="icon-user"></i></a> -->

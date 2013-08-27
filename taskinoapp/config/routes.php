@@ -67,5 +67,8 @@
 $route['default_controller'] = 'dashboard'; //welcome';
 $route['404_override'] = '';
 
+//$route['(:num)/(:any)'] = '$2';
+//$route['app/(:num)/(:any)'] = '$2';
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

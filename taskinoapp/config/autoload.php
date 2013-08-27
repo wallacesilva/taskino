@@ -107,7 +107,7 @@ $autoload['drivers'] = array('session');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'html', 'form', 'string', 'tasks');
+$autoload['helper'] = array('url', 'html', 'form', 'string', 'tasks', 'members', 'taskino', 'projects', 'company');
 
 
 /*

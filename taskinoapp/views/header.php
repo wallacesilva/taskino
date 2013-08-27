@@ -1,5 +1,11 @@
+<?php 
+
+$html_lang = 'en';
+if( get_taskino_language() == 'portuguese' )
+	$html_lang = 'pt-BR';
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo $html_lang; ?>">
 <head>
 	<meta charset="utf-8">
 	<title>Taskino</title>
@@ -8,6 +14,7 @@
 
 	<link rel="stylesheet" type="text/css" href="media/bootstrap/css/bootstrap.min.css" /> <!-- css bootstrap -->
 	<link rel="stylesheet" type="text/css" href="media/css/prettyPhoto.css" /> <!-- css prettyphoto -->
+	<link rel="stylesheet" type="text/css" href="media/font-awesome/css/font-awesome.min.css" /> <!-- css font-awesome -->
 	<link rel="stylesheet" type="text/css" href="media/css/styles.css?r=<?php echo filemtime(FCPATH. 'media/css/styles.css') ?>" />
 
 	<script type="text/javascript" src="media/js/jquery-1.8.3.min.js"></script> <!-- jquery -->
@@ -90,3 +97,6 @@
 		if( strpos(current_url(), 'auth') == FALSE )
 			include('header-menu.php'); 
 		?>
+
+		<div class="container">
+		
