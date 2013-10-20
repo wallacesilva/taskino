@@ -146,6 +146,7 @@ $lang['priority_high'] = 'Alta';
 $lang['priority_very_high'] = 'Muito Alta';
 
 $lang['settings'] = 'Configurações';
+$lang['plan_can_send_sms'] = 'Pode enviar SMS?';
 
 
 // title tables

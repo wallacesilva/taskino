@@ -63,6 +63,11 @@ include('header.php');
         ?>
       </label>
 
+      <label>
+        <strong><?php echo _gettxt('plan_can_send_sms') ?>:</strong>
+        <?php echo _gettxt('no') ?>
+      </label>
+
     </span>
 
     <span class="span12">

@@ -13,6 +13,7 @@ if( get_taskino_language() == 'portuguese' )
 
 
 	<link rel="stylesheet" type="text/css" href="media/bootstrap/css/bootstrap.min.css" /> <!-- css bootstrap -->
+	<!-- <link rel="stylesheet" type="text/css" href="media/bootstrap/css/bootstrap-responsive.min.css" />  -->
 	<link rel="stylesheet" type="text/css" href="media/css/prettyPhoto.css" /> <!-- css prettyphoto -->
 	<link rel="stylesheet" type="text/css" href="media/font-awesome/css/font-awesome.min.css" /> <!-- css font-awesome -->
 	<link rel="stylesheet" type="text/css" href="media/css/styles.css?r=<?php echo filemtime(FCPATH. 'media/css/styles.css') ?>" />
