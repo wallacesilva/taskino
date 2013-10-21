@@ -114,7 +114,10 @@ $lang['project'] = "Projeto";
 $lang['no_projects'] = 'Sem projetos.';
 $lang['project_add_txt'] = 'Adicionar Projeto';
 $lang['project_view'] = 'Ver Projeto';
+$lang['projects_view'] = 'Ver Projetos';
 $lang['recents_comments'] = 'Últimos Comentários';
+$lang['project_percent'] = 'Andamento';
+$lang['project_percent_explain'] = 'Calculo feito em cima das tarefas finalizadas';
 
 $lang['members'] = 'Usuários';
 $lang['member'] = 'Usuário';

@@ -50,11 +50,11 @@ function get_tasks($offset=0, $limit=10, $member_id=null){
 
 }
 
-function get_total_tasks( $project_id ){
+function get_total_tasks( $project_id, $status=null ){
 
 	$CI =& get_instance();
 	$CI->load->model('projects_model');
-	return $CI->projects_model->total_tasks($project_id);
+	return $CI->projects_model->total_tasks($project_id, $status);
 
 }
 

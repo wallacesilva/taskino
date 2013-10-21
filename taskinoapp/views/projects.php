@@ -43,24 +43,51 @@ include('header.php');
           <tr>
             <th><?php echo _gettxt('name') ?></th>
             <th><?php echo _gettxt('tasks') ?></th>
+            <th>
+              <abbr title="<?php echo _gettxt('project_percent_explain') ?>"><?php echo _gettxt('project_percent') ?></abbr>
+            </th>
             <th width="160"><?php echo _gettxt('options') ?></th>
           </tr>
         </thead>
 
         <tbody>
       <?php foreach ($projects as $project): ?>
+      <?php 
+        $total_tasks = get_total_tasks($project->id);
+        $total_tasks_finished = get_total_tasks($project->id, 2);
+
+        $total_percent_project = (($total_tasks_finished * 100) / $total_tasks);
+      ?>
           <tr>
             <td>
               <a href="<?php echo base_url('/projects/show/'.$project->id); ?>">
               <?php echo $project->name; ?>
               </a>
             </td>
-            <td><?php echo get_total_tasks($project->id); ?></td>
+            <td><?php echo $total_tasks; ?></td>
             <td>
-              <a href="<?php echo base_url('/projects/show/'.$project->id); ?>" class="btn btn-mini"><i class="icon-eye-open"></i></a>
-              <a href="<?php echo base_url('/projects/edit/'.$project->id); ?>" class="btn btn-mini"><i class="icon-pencil"></i></a>
-              <a href="<?php echo base_url('/projects/remove/'.$project->id); ?>" class="btn btn-mini confirm" title="<?php echo _gettxt('remove') ?>"
-              data-confirm-title="<?php echo _gettxt('msg_confirm_project_remove'); ?>"><span class="icon-trash"></span></a>
+              <div class="text-center">
+              <?php echo $total_percent_project; ?> %
+              </div>
+              <div class="progress" style="height:5px; margin:0 auto;">
+                <div class="bar bar-success" style="width: <?php echo $total_percent_project; ?>%"><?php echo $total_percent_project; ?>%</div>
+              </div>
+            </td>
+            <td>
+              <a href="<?php echo base_url('/tasks/add/'.$project->id); ?>" class="btn btn-mini btn-primary" title="<?php echo _gettxt('task_add_txt') ?>" onmouseover="jQuery(this).find('.hide').show();" onmouseout="jQuery(this).find('.hide').hide();"><i class="icon-plus"></i> <span class="hide"><?php echo _gettxt('task_add_txt') ?></span></a>
+              <div class="btn-group">
+                <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">
+                  <i class="icon-cog"></i>
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <!-- <li><a href="<?php echo base_url('/tasks/add/'.$project->id); ?>" class=""><i class="icon-plus"></i> <?php echo _gettxt('task_add_txt') ?></a></li> -->
+                  <li><a href="<?php echo base_url('/projects/show/'.$project->id); ?>" class=""><i class="icon-eye-open"></i> <?php echo _gettxt('project_view') ?></a></li>
+                  <li><a href="<?php echo base_url('/projects/edit/'.$project->id); ?>" class=""><i class="icon-pencil"></i> <?php echo _gettxt('edit') ?></a></li>
+                  <li><a href="<?php echo base_url('/projects/remove/'.$project->id); ?>" class="confirm" title="<?php echo _gettxt('remove') ?>"
+                data-confirm-title="<?php echo _gettxt('msg_confirm_project_remove'); ?>"><span class="icon-trash"></span> <?php echo _gettxt('remove') ?></a></li>
+                </ul>
+              </div>
             </td>
           </tr>
       <?php endforeach; ?>

@@ -114,7 +114,10 @@ $lang['project'] = "Project";
 $lang['no_projects'] = 'No projects.';
 $lang['project_add_txt'] = 'Add Project';
 $lang['project_view'] = 'View Project';
+$lang['projects_view'] = 'View Projects';
 $lang['recents_comments'] = 'Recent Comments';
+$lang['project_percent'] = 'Total percent';
+$lang['project_percent_explain'] = 'Calculated with Task finalized and Active';
 
 $lang['members'] = 'Members';
 $lang['member'] = 'Member';

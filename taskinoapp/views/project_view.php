@@ -28,7 +28,7 @@ include('header.php');
           <?php endif ?>
           <th><?php echo _gettxt('created_by') ?></th>
           <th><?php echo _gettxt('due_date') ?></th>
-          <th width="160"><?php echo _gettxt('options') ?></th>
+          <th><?php echo _gettxt('options') ?></th>
         </tr>
       </thead>
       <tbody>
@@ -54,7 +54,9 @@ include('header.php');
         <tr class="<?php echo $task_solved . $task_to_today; ?>">
           <td>
             <?php echo get_priority_name( $task->priority, true ); ?>
-            <?php echo $task->name; ?>
+            <a href="<?php echo $task_url_0; ?>">
+              <?php echo $task->name; ?>
+            </a>
           </td>
           <?php if (!@$is_dashboard): ?>
           <td><?php echo get_member( $task->assigned_to, 'name'); ?></td>
@@ -62,28 +64,50 @@ include('header.php');
           <td><?php echo get_member( $task->created_by, 'name'); ?></td>
           <td><?php echo date('d/m/Y', strtotime($task->task_due_date)); ?></td>
           <td>
-            <a href="#form-assigned-to-<?php echo $task->id; ?>" class="btn btn-mini" title="<?php echo _gettxt('assigned_to') ?>" rel="prettyPhoto">
-              <i class="icon-arrow-right"></i><i class="icon-user"></i>
-            </a>
-            <div id="form-assigned-to-<?php echo $task->id; ?>" style="display:none;">
-              <form method="post" action="<?php echo $task_url_6; ?>">
-                <label><?php echo _gettxt('assigned_to') ?></label>
-                <select name="assigned_to">
-                  <?php echo get_members_options(); ?>
-                </select>
+            <div class="btn-group">
+              <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="icon-cog"></i>
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#form-assigned-to-<?php echo $task->id; ?>" class="text-left" title="<?php echo _gettxt('assigned_to') ?>" rel="prettyPhoto">
+                  <i class="icon-hand-right"></i> <?php echo _gettxt('assigned_to') ?></i>
+                </a>
+                <div id="form-assigned-to-<?php echo $task->id; ?>" style="display:none;">
+                  <form method="post" action="<?php echo $task_url_6; ?>">
+                    <label><?php echo _gettxt('assigned_to') ?></label>
+                    <select name="assigned_to">
+                      <?php echo get_members_options(); ?>
+                    </select>
 
-                <label></label>
-                <a href="javascript:;" onclick="$.prettyPhoto.close();" class="btn"><?php echo _gettxt('cancel') ?></a>
-                <button type="submit" class="btn btn-primary"><?php echo _gettxt('save') ?></button>
-              </form>
+                    <label></label>
+                    <a href="javascript:;" onclick="$.prettyPhoto.close();" class="btn"><?php echo _gettxt('cancel') ?></a>
+                    <button type="submit" class="btn btn-primary"><?php echo _gettxt('save') ?></button>
+                  </form>
+                </div>
+                </li>
+              <?php if( $task->status != 2 ): ?>
+              <li>
+              <a href="<?php echo $task_url_5; ?>" data-confirm-title="<?php echo _gettxt('msg_confirm_task_finalize'); ?>" class="confirm" title="<?php echo _gettxt('finalize') ?>"><span class="icon-ok-circle"></span>
+                <?php echo _gettxt('finalize') ?>
+              </a>
+              </li>
+              <?php endif; ?>
+                <li>
+                <a href="<?php echo $task_url_0; ?>" class="" title="<?php echo _gettxt('task_view') ?>"><span class="icon-eye-open"></span> <?php echo _gettxt('task_view') ?></a>
+                </li>
+              <!-- <a href="<?php echo $task_url_1; ?>" class="btn btn-mini" rel="prettyPhoto" title="Change progress"><span class="icon-signal"></span></a>
+              <a href="<?php echo $task_url_2; ?>" class="btn btn-mini" rel="prettyPhoto" title="Change Assigned to"><span class="icon-chevron-right"></span> <i class="icon-user"></i></a> -->
+              <li>
+              <a href="<?php echo $task_url_3; ?>" class="" title="<?php echo _gettxt('edit') ?>"><span class="icon-pencil"></span> <?php echo _gettxt('edit') ?></a>
+              </li>
+              <li>
+              <a href="<?php echo $task_url_4; ?>" class="confirm" title="<?php echo _gettxt('remove') ?>"
+                data-confirm-title="<?php echo _gettxt('msg_confirm_task_remove'); ?>"><span class="icon-trash"></span> <?php echo _gettxt('remove') ?></a>
+              </li>
+              </ul>
             </div>
-            <a href="<?php echo $task_url_0; ?>" class="btn btn-mini" title="<?php echo _gettxt('task_view') ?>"><span class="icon-eye-open"></span></a>
-            <a href="<?php echo $task_url_3; ?>" class="btn btn-mini" title="<?php echo _gettxt('edit') ?>"><span class="icon-pencil"></span></a>
-            <a href="<?php echo $task_url_4; ?>" class="btn btn-mini confirm" title="<?php echo _gettxt('remove') ?>"
-              data-confirm-title="<?php echo _gettxt('msg_confirm_task_remove'); ?>"><span class="icon-trash"></span></a>
-            <?php if( $task->status != 2 ): ?>
-            <a href="<?php echo $task_url_5; ?>" data-confirm-title="<?php echo _gettxt('msg_confirm_task_finalize'); ?>" class="btn btn-mini confirm" title="<?php echo _gettxt('finalize') ?>"><span class="icon-ok-circle"></span></a>
-            <?php endif; ?>
           </td>
         </tr>
     <?php endforeach; ?>
