@@ -13,13 +13,18 @@ include('header.php');
 
 				<div class="task_info">
 
+					<strong><?php echo _gettxt('project') ?>:</strong> 
+					<a href="<?php echo base_url('projects/show/'.$task->project_id) ?>">
+						<?php echo get_project($task->project_id, 'name'); ?>
+					</a> <br>
+
 					<strong><?php echo $task->name; ?></strong> <small>(<?php echo date('d/m/Y', strtotime($task->date_added)); ?>)</small>
 					<br>
 					<small>
 						<strong><?php echo _gettxt('assigned_to') ?></strong> <?php echo get_member( $task->assigned_to, 'name'); ?> <br>
 						<strong><?php echo _gettxt('due_date') ?></strong> <?php echo date('d/m/Y', strtotime($task->task_due_date)); ?> <br>
 					</small>
-					<small style="display:none;" id="task-more-info">
+					<small id="task-more-info">
 						<strong><?php echo _gettxt('created_by') ?></strong> <?php echo get_member( $task->created_by, 'name'); ?> <br>
 						<strong><?php echo _gettxt('priority') ?></strong> <?php echo get_priority_name( $task->priority, true ); ?> <br>
 						<p>
@@ -32,7 +37,7 @@ include('header.php');
 						</div>
 					</small>
 
-					<a href="javascript:jQuery('#task-more-info').slideToggle();" class="btn btn-mini" style="width:95%; margin:0 auto;">
+					<a href="javascript:jQuery('#task-more-info').slideToggle();" class="btn btn-mini hide" style="width:95%; margin:0 auto;">
 						<i class="icon-long-arrow-down"></i>
 						<i class="icon-long-arrow-up"></i>
 						<?php echo _gettxt('see_more') ?></a> 
@@ -84,6 +89,10 @@ include('header.php');
 
 				</div><!-- end .task_info -->
 
+			</span>
+			<span class="span8"> 
+
+
 				<div class="form_add_comment">
 					<strong><?php echo _gettxt('comment_add') ?></strong>
 
@@ -91,21 +100,18 @@ include('header.php');
 						
 						<input type="hidden" name="task_id" value="<?php echo $task->id; ?>" />
 
-						<label for="task_subject"></label>
-						<input type="text" name="subject" id="task_subject" placeholder="<?php echo _gettxt('subject') ?>" />
+						<!-- <label for="task_subject"></label>
+						<input type="text" name="subject" id="task_subject" placeholder="<?php echo _gettxt('subject') ?>" /> -->
 						<label for="task_comment"></label>
-						<textarea name="comment" id="task_comment" class="form_textarea" placeholder="<?php echo _gettxt('comment') ?>"></textarea>
+						<textarea name="comment" id="task_comment" class="form_textarea2 input-xxlarge" placeholder="<?php echo _gettxt('comment') ?>"></textarea>
 
-						<label></label>
+						<!-- <label></label> -->
 						<!-- <input type="submit" class="btn" value="<?php echo _gettxt('save') ?>" />
 						<input type="reset" class="btn" value="<?php echo _gettxt('reset') ?>" /> -->
-						<button type="submit" class="btn btn-primary"><?php echo _gettxt('save') ?></button>
+						<button type="submit" id="task_comment_btn_save" class="btn btn-primary"><?php echo _gettxt('save') ?></button>
 
 					</form>
 				</div><!-- end .form_add_comment -->
-
-			</span>
-			<span class="span8"> 
 
 				<strong><?php echo _gettxt('comments') ?>:</strong> <br>
 
@@ -129,6 +135,7 @@ include('header.php');
 							</span>
 
 						</div><!-- end .task_comments_box -->
+						<hr>
 
 					<?php endforeach; ?>
 					

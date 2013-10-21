@@ -404,7 +404,7 @@ class Tasks extends MY_Controller {
 		$task_id = $this->input->post('task_id');
 
 		$comment_data = array('task_id' 		=> $task_id,
-													'subject' 		=> $this->input->post('subject'),
+													'subject' 		=> '',//$this->input->post('subject'),
 													'comment'			=> $this->input->post('comment'),
 													'created_by'	=> get_member_session('id'),
 													'date_added'	=> date('Y-m-d H:i:s')
