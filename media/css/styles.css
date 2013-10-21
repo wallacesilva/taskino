@@ -23,11 +23,11 @@ form .input-error{
 	padding: 10px 0;
 	clear: both;
 }
-
+/*
 .table-condensed td{vertical-align: middle;}
 .tbl_list{}
 .tbl_list tr .btn{display:none;}
-.tbl_list tr:hover .btn{display:inline-block;}
+.tbl_list tr:hover .btn{display:inline-block;}*/
 
 /** form tasks */
 .form_textarea,
