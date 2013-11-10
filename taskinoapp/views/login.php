@@ -9,7 +9,7 @@ html{
 }
 .wrap-login{
 	width:220px;
-	margin:15% auto 5% auto;
+	margin:0% auto 5% auto;
 	border:1px solid #999;
 	padding-left: 20px;
 	padding-right: 20px;
@@ -51,6 +51,9 @@ html{
   </ul>
 </div>
 
+<p class="text-center">
+    <img src="media/images/logo-in9web.png" alt="[in9]Web - Logo" style="height:50px;margin-top:10%">
+</p>
 
 <div class="wrap-login img-rounded">
 
