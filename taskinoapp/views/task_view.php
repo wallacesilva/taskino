@@ -131,7 +131,7 @@ include('header.php');
 								</small>
 							</div>
 							<span class="comments_description">
-								<?php echo $comment->comment; ?>
+								<?php echo nl2br($comment->comment); ?>
 							</span>
 
 						</div><!-- end .task_comments_box -->

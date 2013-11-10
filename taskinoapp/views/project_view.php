@@ -9,7 +9,7 @@ include('header.php');
   <h3><?php echo _gettxt('project'); ?></h3>
   <div class="project-descript">
     <strong><?php echo _gettxt('name'); ?>:</strong> <?php echo $project->name; ?>  <br>
-    <strong><?php echo _gettxt('description'); ?>:</strong> <?php echo $project->description; ?>
+    <strong><?php echo _gettxt('description'); ?>:</strong> <?php echo nl2br($project->description); ?>
   </div>
 
   <hr>
