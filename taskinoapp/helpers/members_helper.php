@@ -264,7 +264,7 @@ function member_do_login($login, $password){
     if ($member['status'] == 'inactive') {
 
       $data2['msg_error'] = _gettxt('msg_error_company_not_active'); 
-      $this->session->set_flashdata('msg_error', $data2['msg_error']);
+      $CI->session->set_flashdata('msg_error', $data2['msg_error']);
       redirect('/auth');
 
     }
