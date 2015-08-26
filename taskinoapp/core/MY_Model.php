@@ -15,7 +15,7 @@ class MY_Model extends CI_Model{
     if( is_array($where) )
       $this->db->where( $where );
 
-    $total_results = $this->db->count_all( $this->_tablename );
+    $total_results = $this->db->count_all_results( $this->_tablename );
 
     return $total_results;
 
