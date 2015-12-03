@@ -8,7 +8,7 @@ html{
 	height: 100%;
 }
 body{
-	background-image: url('media/images/taskino-login-background-opacity.png');
+	background-image: url('media/images/taskino-login-background-opacity.jpg');
 	background-position: top center;
 }
 .wrap-login{
