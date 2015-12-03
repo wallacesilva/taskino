@@ -116,6 +116,109 @@ class Settings extends MY_Controller {
 
   }
 
+    public function payment_checkout_error($error=1)
+    {
+        if ((int)$error > 1)
+            $this->session->set_flashdata('msg_error', 'erro :('._gettxt('msg_payment_error_'.$error));
+
+        // 1: Ops! Erro ao processar pagamento. Tenta novamente.
+        // 2: 
+
+        redirect('settings');
+    }
+
+    public function payment_checkout()
+    {
+        $this->output->enable_profiler();
+
+        define('PAGSEGURO_URL', 'https://ws.sandbox.pagseguro.uol.com.br'); // sandbox
+        define('PAGSEGURO_URL_REDIRECT', 'https://sandbox.pagseguro.uol.com.br'); // sandbox
+        define('PAGSEGURO_EMAIL', 'financeiro@in9web.com');
+        //define('PAGSEGURO_TOKEN', 'B44EE4B116CD44B5B6105AF247297922');
+        define('PAGSEGURO_TOKEN', 'F669C9735ADD410497B9543533C2F092');
+
+        $plan_id        = 2; //$this->input->post('plan_id');
+
+        $plan           = get_plan($plan_id);
+        $company        = (object) get_company_session();
+
+        echo '<pre>';
+        print_r($plan);
+        print_r($company);
+        echo '</pre>';
+
+        $timestamp      = time();
+
+        $reference      = sprintf('REF.%s.%s.%s', $plan->id, $company->id, $timestamp);
+        $description    = sprintf('Contratar plano %s para %s no TaskinoApp', $plan->name, $company->name);
+        $price          = (float) $plan->price;
+
+        $data = array(
+            'email'             => PAGSEGURO_EMAIL,
+            'token'             => PAGSEGURO_TOKEN,
+            'currency'          => "BRL",
+            'itemId1'           => $company->id,
+            'itemDescription1'  => substr($description, 0, 100),
+            'itemAmount1'       => number_format($price, 2),
+            'itemQuantity1'     => 1,
+            'reference'         => $reference,
+            'senderEmail'       => $company->email,
+        );
+
+        $curl_resource  = curl_init();
+        curl_setopt($curl_resource, CURLOPT_URL, PAGSEGURO_URL.'/v2/checkout/');
+        curl_setopt($curl_resource, CURLOPT_POST, count($data));
+        curl_setopt($curl_resource, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($curl_resource, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl_resource, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded; charset=UTF-8'));
+        $result         = curl_exec($curl_resource);
+
+        $xml            = simplexml_load_string($result);
+        $json           = json_encode($xml);
+        $array          = json_decode($json,TRUE);
+
+        if ($array['error']) {
+
+            //echo "Houve um erro, por favor tente novamente mais tarde";
+            //redirect('/settings/payment_checkout_error/1');
+
+        } elseif ($result) {
+
+            $code = $array['code'];
+
+            // salva as informações do pagseguro na tabela
+            $transaction_db_data = array(
+                'company_id'    => $company->id,
+                'plan_id'       => $plan->id,
+                'member_id'     => get_member_session('id'),
+                'return_code'   => $code,
+                'reference'     => $reference,
+                'date'          => $timestamp,
+                'status'        => 'pending', 
+                'date_added'    => date('Y-m-d H:i:s')
+            );
+
+            //$this->db->insert('taskino_transactions', $transaction_db_data);
+            $saved = true;
+
+            if ($saved) {
+
+                // transação salva com sucesso, redirecionar para o pagseguro
+                $this->output->set_header('Location: '.PAGSEGURO_URL_REDIRECT.'/v2/checkout/payment.html?code='. $code);
+                
+                //header("location: https://pagseguro.uol.com.br/v2/checkout/payment.html?code=". $code);
+
+            } else {
+
+                // erro ao processar pagamento
+                //redirect('/settings/payment_checkout_error/1');
+
+            }
+
+        }
+
+    }
+
 }
 
 /* End of file settings.php */
