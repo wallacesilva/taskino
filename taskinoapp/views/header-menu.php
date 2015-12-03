@@ -13,6 +13,9 @@
 							if (strpos($file_headers[0],'200')===false)
 								$is_url_logo = false;
 			    	?>
+				    	<a href="javascript:;" class="brand" style="padding:10px 0px 0px 15px">
+				    		<img src="media/images/taskino-favicon.png" style="height:25px;" alt="Logo" />
+				    	</a>
 			    		<?php if( $is_url_logo ): ?>
 					    	<a href="javascript:;" class="brand">
 					    		<img src="<?php echo $url_logo; ?>" style="height:20px;" alt="Logo" />
