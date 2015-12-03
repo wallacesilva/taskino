@@ -11,6 +11,7 @@ if( get_taskino_language() == 'portuguese' )
 	<title>Taskino</title>
 	<base href="<?php echo base_url() ?>" />
 
+	<link rel="shortcut icon" href="media/images/taskino-favicon.png">
 
 	<link rel="stylesheet" type="text/css" href="media/bootstrap/css/bootstrap.min.css" /> <!-- css bootstrap -->
 	<!-- <link rel="stylesheet" type="text/css" href="media/bootstrap/css/bootstrap-responsive.min.css" />  -->
