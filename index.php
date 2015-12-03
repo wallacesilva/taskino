@@ -25,6 +25,17 @@
  * @filesource
  */
 
+
+/*
+ *---------------------------------------------------------------
+ * COMPOSER AUTOLOAD
+ *---------------------------------------------------------------
+ *
+ * Load composer autoload to use external libraries and components
+ */
+if ( file_exists('vendor/autoload.php') )
+	require_once 'vendor/autoload.php';
+
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
@@ -74,7 +85,7 @@ switch (ENVIRONMENT)
 		define('DB_HOST', 'localhost');
 		define('DB_USER', 'root');
 		define('DB_PASS', '000000');
-		define('DB_NAME', 'gotask');
+		define('DB_NAME', 'in9_taskino');
 		define('DB_PREFIX', 'go_');
 		define('MAIL_NO_REPLY', 'no-reply@taskino.vs');
 
