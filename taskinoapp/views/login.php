@@ -7,12 +7,17 @@ include('header.php');
 html{
 	height: 100%;
 }
+body{
+	background-image: url('media/images/taskino-login-background-opacity.png');
+	background-position: top center;
+}
 .wrap-login{
 	width:220px;
 	margin:0% auto 5% auto;
 	border:1px solid #999;
 	padding-left: 20px;
 	padding-right: 20px;
+	background-color: #fff;
 	-webkit-box-shadow: 2px 2px 10px #ccc;
 		 -moz-box-shadow: 2px 2px 10px #ccc;
 					box-shadow: 2px 2px 10px #ccc;
@@ -22,6 +27,7 @@ html{
 	top: 10px;
 	right: 10px;
 }
+#footer{color:#fff;}
 </style>
 
 <div id="taskin-language" class="pull-right">
@@ -51,14 +57,16 @@ html{
   </ul>
 </div>
 
-<p class="text-center">
+<p class="text-center" style="visibility:hidden;">
     <img src="media/images/logo-in9web.png" alt="[in9]Web - Logo" style="height:50px;margin-top:10%">
 </p>
 
 <div class="wrap-login img-rounded">
 
 	<center>
-		<h3>Taskino</h3>
+		<!-- <h3>Taskino</h3> -->
+		<h3><img src="media/images/taskino-logo-wide.png" alt="Taskino - Logo"></h3>
+		<hr>
 	</center>
 
 	<?php if( isset($msg_error) && strlen($msg_error) > 0 ): ?>
@@ -94,6 +102,8 @@ html{
 		background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* IE10+ */
 		background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C */
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+		background-image: url('media/images/taskino-login-background-opacity.png');
+		background-position: top center;
 		
 	}
 	</style>
@@ -250,8 +260,19 @@ html{
 		<input type="password" name="password" placeholder="<?php echo _gettxt('password') ?>" required />
 
 		<label></label>
-		<input type="submit" class="btn btn-small" value="Login" />
-		<a href="javascript:jQuery('form').slideToggle();" class="btn btn-small"><span class="icon-lock"></span> <?php echo _gettxt('forgot_password') ?></a>
+		<div class="row-fluid">
+			
+			<div class="span4">
+				
+				<input type="submit" class="btn btn-small span12" value="Login" />
+
+			</div>
+
+			<div class="span8">
+				
+				<a href="javascript:jQuery('form').slideToggle();" class="btn btn-small span12"><span class="icon-lock"></span> <?php echo _gettxt('forgot_password') ?></a>
+			</div>
+		</div>
 
 	</form>
 
