@@ -72,6 +72,28 @@ function get_plan_active(){
 
 }
 
+function get_plan($plan_id)
+{
+  if ((int)$plan_id < 1)
+    return null;
+
+  $CI =& get_instance();
+  $CI->db->where('id', $plan_id);
+  $query = $CI->db->get('taskino_plans');
+
+  if ($query->num_rows() > 0) {
+
+    $plan = $query->result();
+
+    if (isset($plan[0]->id) && $plan[0]->id == $plan_id)
+      return $plan[0];
+    
+  }
+
+  return null;
+
+}
+
 // get default pagination to CI work with twitter bootstrap 
 function get_pagination_config( $pre_config = null ){
 
