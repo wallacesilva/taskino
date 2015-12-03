@@ -1,3 +1,5 @@
 */logs/log-*.php
 work/*
+taskino-uploads/*
+taskinoapp/logs/*
 composer.lock
