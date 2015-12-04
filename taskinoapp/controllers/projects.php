@@ -83,8 +83,14 @@ class Projects extends MY_Controller {
 
       $this->load->model('tasks_model');
 
+
       // get tasks from project
       $task_find_options['where'] = array('project_id' => $project->id);
+      $task_find_options['order'] = array(
+        "status" => "asc",
+        "task_due_date" => "asc"
+      );
+
       $task_find_options['limit'] = 0; // show all
       $tasks = $this->tasks_model->findAll( $task_find_options );
       $data_project['tasks'] = $tasks;

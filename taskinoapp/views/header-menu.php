@@ -1,7 +1,5 @@
 		<div class="header">
 
-			<div class="container">
-
 			<div class="navbar">
 			  <div class="navbar-inner">
 			    <ul class="nav">
@@ -67,7 +65,5 @@
 					</div>
 			  </div>
 			</div>
-
-			</div><!-- end .container -->
 
 		</div> <!-- end header -->
