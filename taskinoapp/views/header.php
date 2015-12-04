@@ -14,10 +14,24 @@ if( get_taskino_language() == 'portuguese' )
 	<link rel="shortcut icon" href="media/images/taskino-favicon.png">
 
 	<link rel="stylesheet" type="text/css" href="media/bootstrap/css/bootstrap.min.css" /> <!-- css bootstrap -->
-	<!-- <link rel="stylesheet" type="text/css" href="media/bootstrap/css/bootstrap-responsive.min.css" />  -->
+	<link rel="stylesheet" type="text/css" href="media/bootstrap/css/bootstrap-responsive.min.css" /> 
 	<link rel="stylesheet" type="text/css" href="media/css/prettyPhoto.css" /> <!-- css prettyphoto -->
 	<link rel="stylesheet" type="text/css" href="media/font-awesome/css/font-awesome.min.css" /> <!-- css font-awesome -->
 	<link rel="stylesheet" type="text/css" href="media/css/styles.css?r=<?php echo filemtime(FCPATH. 'media/css/styles.css') ?>" />
+	<link rel="stylesheet" type="text/css" href="media/css/theme-white.css?r=<?php echo filemtime(FCPATH. 'media/css/theme-white.css') ?>" />
+
+	<script>
+
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-71042300-2', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+
 
 	<script type="text/javascript" src="media/js/jquery-1.8.3.min.js"></script> <!-- jquery -->
 	<script type="text/javascript" src="media/bootstrap/js/bootstrap.min.js"></script> <!-- twitter bootstrap -->
@@ -83,6 +97,7 @@ if( get_taskino_language() == 'portuguese' )
 	</script>
 </head>
 <body>
+
 <div id="gomodal-iframe" class="modal hide fade" tabindex="-1" role="dialog">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">×</button>
@@ -93,12 +108,12 @@ if( get_taskino_language() == 'portuguese' )
 	</div>
 </div>
 
-	<div class="gowrapper">
+<div class="gowrapper">
 
-		<?php 
-		if( strpos(current_url(), 'auth') == FALSE )
-			include('header-menu.php'); 
-		?>
+	<?php 
+	if( strpos(current_url(), 'auth') == FALSE )
+		include('header-menu.php'); 
+	?>
 
-		<div class="container">
+	<div class="container">
 		
