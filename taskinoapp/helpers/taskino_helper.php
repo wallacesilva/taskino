@@ -109,10 +109,20 @@ function get_pagination_config( $pre_config = null ){
   $config_pag['num_tag_close']  = '</li>';
   $config_pag['prev_link']      = ''; //&lt;
   $config_pag['next_link']      = ''; //&gt;
+
   $config_pag['prev_tag_open']  = '<!--';
   $config_pag['prev_tag_close'] = '-->';
   $config_pag['next_tag_open']  = '<!--';
   $config_pag['next_tag_close'] = '-->';
+
+  $config_pag['last_tag_open']  = '<!--<li class="last">'; 
+  $config_pag['last_tag_close']= '-->';
+  $config_pag['last_link'] = "Próxima";
+  
+  $config_pag['first_tag_open']  = '<!--'; 
+  $config_pag['first_tag_close']= '-->';
+  $config_pag['first_link'] = "Primeira";
+
 
   $config_pag = array_merge($config_pag, $pre_config);
 
