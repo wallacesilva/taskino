@@ -67,7 +67,7 @@ include('header.php');
             <td><?php echo $total_tasks; ?></td>
             <td>
               <div class="text-center">
-              <?php echo $total_percent_project; ?> %
+              <?php echo round($total_percent_project); ?> %
               </div>
               <div class="progress" style="height:5px; margin:0 auto;">
                 <div class="bar bar-success" style="width: <?php echo $total_percent_project; ?>%"><?php echo $total_percent_project; ?>%</div>
