@@ -1,0 +1,33 @@
+/* estilos das tabelas */
+
+table thead {
+	background: #eee;
+}
+
+table thead th{
+	padding: 10px 10px !important;
+}
+
+table tbody td{
+	padding: 8px 5px !important;
+}
+
+table tbody td:last-child{
+	text-align: center;
+}
+table tbody td:last-child .dropdown-menu{
+	margin-left: -130px;
+	text-align: left;
+}
+
+table td:first-child a{
+	float: left;
+	margin-right: 10px;
+}
+
+table tr.muted td{
+	background-color: #DFFFCB !important;
+}
+
+/* estilos das tabelas */
+
