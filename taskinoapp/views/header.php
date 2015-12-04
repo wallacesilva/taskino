@@ -20,6 +20,19 @@ if( get_taskino_language() == 'portuguese' )
 	<link rel="stylesheet" type="text/css" href="media/css/styles.css?r=<?php echo filemtime(FCPATH. 'media/css/styles.css') ?>" />
 	<link rel="stylesheet" type="text/css" href="media/css/theme-white.css?r=<?php echo filemtime(FCPATH. 'media/css/theme-white.css') ?>" />
 
+	<script>
+
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-71042300-2', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+
+
 	<script type="text/javascript" src="media/js/jquery-1.8.3.min.js"></script> <!-- jquery -->
 	<script type="text/javascript" src="media/bootstrap/js/bootstrap.min.js"></script> <!-- twitter bootstrap -->
 	<script type="text/javascript" src="media/js/jquery.prettyPhoto.js"></script> <!-- prettyphoto -->
